@@ -1,20 +1,20 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ti_mmwave_rospkg)
 
-## Add support for C++11, supported in ROS Kinetic and newer
- add_definitions(-std=c++11)
+## Add support for C++17, supported in ROS Kinetic and newer
+add_definitions(-std=c++17)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  nodelet
-  roscpp
-  serial
-  std_msgs
-  sensor_msgs
-  message_generation
-  pluginlib
+        nodelet
+        roscpp
+        serial
+        std_msgs
+        sensor_msgs
+        message_generation
+        pluginlib
 )
 
 find_package(Boost REQUIRED)
@@ -58,14 +58,15 @@ find_package(PCL 1.7.2 REQUIRED)
 
 ## Generate messages in the 'msg' folder
 add_message_files(
-  FILES
-  RadarScan.msg
+        FILES
+        RadarScan.msg
+        RadarScanCustom.msg
 )
 
 ## Generate services in the 'srv' folder
 add_service_files(
-  FILES
-  mmWaveCLI.srv
+        FILES
+        mmWaveCLI.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -77,9 +78,9 @@ add_service_files(
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
-  DEPENDENCIES
-  std_msgs
-  sensor_msgs
+        DEPENDENCIES
+        std_msgs
+        sensor_msgs
 )
 
 ################################################
@@ -112,10 +113,10 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES mmwave
-  #CATKIN_DEPENDS nodelet roscpp serial std_msgs
-  DEPENDS system_lib
+        INCLUDE_DIRS include
+        LIBRARIES mmwave
+        #CATKIN_DEPENDS nodelet roscpp serial std_msgs
+        DEPENDS system_lib
 )
 
 ###########
@@ -125,27 +126,27 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
-include_directories( include
-  ${catkin_INCLUDE_DIRS}
-  ${ti_mmwave_rospkg_INCLUDE_DIRS}
-  ${PCL_INCLUDE_DIRS}
-  ${pthread_INCLUDE_DIRS}
-  ${rt_INCLUDE_DIRS}
+include_directories(include
+        ${catkin_INCLUDE_DIRS}
+        ${ti_mmwave_rospkg_INCLUDE_DIRS}
+        ${PCL_INCLUDE_DIRS}
+        ${pthread_INCLUDE_DIRS}
+        ${rt_INCLUDE_DIRS}
 )
 
-link_directories( ${Boost_LIBRARIES_DIRS} )
+link_directories(${Boost_LIBRARIES_DIRS})
 
-link_directories( ${PCL_LIBRARY_DIRS} )
+link_directories(${PCL_LIBRARY_DIRS})
 
 add_definitions(${PCL_DEFINITIONS})
 
 ## Declare a C++ library
 add_library(mmwave
-  src/mmWaveDataHdl.cpp
-  src/mmWaveCommSrv.cpp
-  src/DataHandlerClass.cpp
-  src/mmWaveQuickConfig.cpp
-  src/ParameterParser.cpp
+        src/mmWaveDataHdl.cpp
+        src/mmWaveCommSrv.cpp
+        src/DataHandlerClass.cpp
+        src/mmWaveQuickConfig.cpp
+        src/ParameterParser.cpp
 )
 
 ## Add cmake target dependencies of the library
@@ -207,7 +208,7 @@ add_dependencies(mmwave ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TA
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
-set (CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
 
 add_executable(${PROJECT_NAME} src/mmWaveLoader.cpp)
 target_link_libraries(mmwave ${serial_LIBRARIES})

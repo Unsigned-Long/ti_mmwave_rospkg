@@ -1,3 +1,39 @@
+# Modified TI mmWave ROS Package (Customized)
+
+origin message format, i.e., `RadarScan.msg`:
+
+```txt
+Header header
+uint16 point_id
+float32 x
+float32 y
+float32 z
+float32 range
+float32 velocity
+uint16 doppler_bin
+float32 bearing
+float32 intensity
+```
+
+added modified-message format, i.e., `RadarScanCustom`:
+
+```txt
+Header header
+uint16 radar_frame_idx
+uint16 point_id
+float32 x
+float32 y
+float32 z
+float32 range
+float32 velocity
+uint16 doppler_bin
+float32 bearing
+float32 intensity
+float32 intensity_snr_noise
+float32 noise
+string time_human
+```
+
 # TI mmWave ROS Package (Customized)
 
 #### Auhor and Maintainer: Leo Zhang
@@ -30,6 +66,7 @@ TI mmWave AWR1843BOOST ES1.0 EVM
 ### Quick start guide (AWR1642BOOST ES2.0 EVM):
 1. Mount AWR1642BOOST ES2.0 EVM (as below), connect 5V/2.5A power supply and connect a micro-USB cable to host Ubuntu 16.04 LTS with [ROS Kinetic](http://wiki.ros.org/kinetic).
    
+
 ![](https://github.com/radar-lab/ti_mmwave_rospkg/raw/master/auxiliary/mounting.jpg "AWR1642 Mounting")
 
 Note: Tested with Ubuntu 16.04 LTS with ROS Kinectic and Ubuntu 18.04 LTS with [ROS Melodic](http://wiki.ros.org/melodic)
